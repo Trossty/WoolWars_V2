@@ -1,0 +1,4 @@
+name: WoolWars
+version: '${project.version}'
+main: woolwars.woolwars.WoolWarsPlugin
+api-version: 1.19
