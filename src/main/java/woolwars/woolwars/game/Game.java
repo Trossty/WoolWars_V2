@@ -11,6 +11,8 @@ import java.util.UUID;
 @Getter
 public class Game {
 
+    private String gameName;
+
     private Set<UUID> playerList = new HashSet<>();
     private Set<UUID> bluePlayerList = new HashSet<>();
     private Set<UUID> redPlayerList = new HashSet<>();
@@ -23,9 +25,10 @@ public class Game {
 
     private int time = 0;
 
-    public Game(Map map, Location centerLocation){
+    public Game(Map map, Location centerLocation, String name){
         this.map = map;
         this.centerLocation = centerLocation;
+        gameName = name;
     }
 
     public void setState(GameState state) {

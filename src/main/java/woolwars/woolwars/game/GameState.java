@@ -31,6 +31,10 @@ public class GameState implements Listener {
         return this.plugin;
     }
 
+    public Game getGame(){
+        return game;
+    }
+
     public String getName() {
         return name;
     }
