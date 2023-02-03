@@ -15,6 +15,8 @@ public class GameManager {
 
     private List<Game> gamesList = new ArrayList<>();
 
+    public List<Map> mapList = new ArrayList<>();
+
     public GameManager(WoolWarsPlugin plugin){
 
         this.plugin = plugin;
