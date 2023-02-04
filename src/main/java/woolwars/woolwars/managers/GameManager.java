@@ -23,8 +23,8 @@ public class GameManager {
 
     }
 
-    public void addGame(Map map, Location centerLocation,String name){
-        Game game = new Game(map,centerLocation,name);
+    public void addGame(Map map, Location centerLocation,String uuid){
+        Game game = new Game(map,centerLocation,uuid);
         game.setState(new PreLobbyState(plugin,game));
         gamesList.add(game);
     }
