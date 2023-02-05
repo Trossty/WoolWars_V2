@@ -1,9 +1,8 @@
 package woolwars.woolwars.game;
 
 import lombok.Getter;
-import woolwars.woolwars.game.states.PreLobbyState;
+import org.bukkit.Location;
 
-import javax.xml.stream.Location;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -17,17 +16,19 @@ public class Game {
     private Set<UUID> bluePlayerList = new HashSet<>();
     private Set<UUID> redPlayerList = new HashSet<>();
 
-    private Location centerLocation;
+    private Location location;
 
     private GameState state;
 
     private Map map;
 
+    private int slot = 1;
+
     private int time = 0;
 
     public Game(Map map, Location centerLocation, String name){
         this.map = map;
-        this.centerLocation = centerLocation;
+        this.location = centerLocation;
         uuid = name;
     }
 

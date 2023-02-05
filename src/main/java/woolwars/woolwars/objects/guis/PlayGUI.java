@@ -16,9 +16,17 @@ public class PlayGUI extends GUI<WoolWarsPlugin> {
 
     private void createInventory() {
 
-        set(11,new ItemBuilder(Material.DIAMOND_AXE).withDisplayName("&aPlay!").getItemStack());
+        set(11,new ItemBuilder(Material.DIAMOND_AXE).withDisplayName("&aPlay!").getItemStack(),(whoClicked, clickedItem) ->{
+            getPlugin().getGameManager().placePlayerRandomGame(whoClicked);
+            return ButtonAction.CLOSE_GUI;
+        } );
 
-        set(15,new ItemBuilder(Material.MAP).withDisplayName("&2Browse Maps").getItemStack());
+        set(15,new ItemBuilder(Material.MAP).withDisplayName("&2Browse Maps").getItemStack(),(whoClicked, clickedItem) -> {
+
+            getPlugin().getGUIAPI().openGUI(whoClicked,new MapsGUI(getPlugin()));
+
+            return ButtonAction.CLOSE_GUI;
+        });
 
     }
 

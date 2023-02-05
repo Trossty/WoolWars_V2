@@ -4,6 +4,7 @@ import lombok.Getter;
 import org.bukkit.*;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import woolwars.woolwars.api.GUI.GUIAPI;
 import woolwars.woolwars.classes.EmptyChunkGenerator;
 import woolwars.woolwars.game.Map;
 import woolwars.woolwars.managers.GameManager;
@@ -19,9 +20,21 @@ public final class WoolWarsPlugin extends JavaPlugin {
 
     private World woolWarsMap;
 
+    private GUIAPI<WoolWarsPlugin> guiapi;
+
     @Override
     public void onEnable() {
         gameManager = new GameManager(this);
+
+        File file1 = new File(getDataFolder(), "schematics");
+        if (!file1.exists()) {
+            file1.mkdirs();
+        }
+
+        File file2 = new File(getDataFolder(), "maps");
+        if (!file2.exists()) {
+            file2.mkdirs();
+        }
 
         loadWorld();
         loadMaps();
@@ -69,10 +82,10 @@ public final class WoolWarsPlugin extends JavaPlugin {
                     }
 
                     Map map = new Map(mapName, mapSchemName, redLocation, blueLocation, centerLocation, upgradesLocations);
-                    gameManager.mapList.add(map);
+                    gameManager.getMapList().add(map);
                 }else {
                     Map map = new Map(mapName, mapSchemName, this);
-                    gameManager.mapList.add(map);
+                    gameManager.getMapList().add(map);
                 }
 
             }
@@ -86,5 +99,9 @@ public final class WoolWarsPlugin extends JavaPlugin {
 
     public World getWoolWarsMap() {
         return woolWarsMap;
+    }
+
+    public GUIAPI<WoolWarsPlugin> getGUIAPI() {
+        return guiapi;
     }
 }

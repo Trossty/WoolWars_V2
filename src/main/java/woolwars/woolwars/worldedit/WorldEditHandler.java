@@ -21,7 +21,7 @@ import java.io.*;
 public class WorldEditHandler {
 
     @SneakyThrows
-    public void paste(File file, Location location){
+    public static void paste(File file, Location location){
 
         ClipboardFormat format = ClipboardFormats.findByFile(file);
 
@@ -51,7 +51,7 @@ public class WorldEditHandler {
 
     }
 
-    public void copy(File destination, Location min, Location max){
+    public static void copy(File destination, Location min, Location max){
 
         World world = min.getWorld();
 

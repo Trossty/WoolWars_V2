@@ -7,6 +7,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import woolwars.woolwars.utils.Colorize;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +20,7 @@ public abstract class GUI<T extends JavaPlugin> implements InventoryHolder {
 
     public GUI(T plugin) {
         this.plugin = plugin;
-        this.inventory = Bukkit.createInventory(this, getSize(), getTitle());
+        this.inventory = Bukkit.createInventory(this, getSize(), Colorize.format(getTitle()));
     }
 
     public abstract int getSize();
