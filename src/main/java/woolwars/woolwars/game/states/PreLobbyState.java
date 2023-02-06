@@ -16,16 +16,17 @@ public class PreLobbyState extends GameState {
 
     @Override
     public void onEnable(){
+
+        WorldEditHandler.paste(new File(getPlugin().getDataFolder(), "schematics/"+getGame().getMap().getSchematicName()+".schem"), getGame().getLocation());
+
+        WorldEditHandler.paste(new File(getPlugin().getDataFolder(), "schematics/lobby.schem"), getGame().getLocation().clone().add(0,200,0));
+
         (new BukkitRunnable() {
             @Override
             public void run() {
                 onDisable();
             }
         }).runTaskLater(getPlugin(),20*5);
-
-        WorldEditHandler.paste(new File(getPlugin().getDataFolder(), "schematics/"+getGame().getMap().getSchematicName()+".schem"), getGame().getLocation());
-
-        WorldEditHandler.paste(new File(getPlugin().getDataFolder(), "schematics/lobby.schem"), getGame().getLocation().clone().add(0,200,0));
 
     }
 

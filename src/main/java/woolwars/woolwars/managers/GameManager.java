@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class GameManager {
 
@@ -76,6 +77,17 @@ public class GameManager {
         Bukkit.getPluginManager().callEvent(new PlayerJoinToGameEvent(game,player));
 
     }
+
+    public Game findGame(Player player){
+        AtomicReference<Game> respond = null;
+        gamesList.forEach(game -> {
+            if(game.getPlayerList().contains(player.getUniqueId())){
+                respond.set(game);
+            }
+        });
+        return respond.get();
+    }
+
 
     //----------------------------------------------------//
     private boolean isSlotOptimal(int slot){

@@ -35,4 +35,8 @@ public class Game {
     public void setState(GameState state) {
         this.state = state;
     }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
 }
