@@ -26,6 +26,8 @@ public final class WoolWarsPlugin extends JavaPlugin {
     public void onEnable() {
         gameManager = new GameManager(this);
 
+        guiapi = new GUIAPI<>(this);
+
         File file1 = new File(getDataFolder(), "schematics");
         if (!file1.exists()) {
             file1.mkdirs();

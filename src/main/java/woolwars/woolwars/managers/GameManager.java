@@ -1,9 +1,11 @@
 package woolwars.woolwars.managers;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import woolwars.woolwars.WoolWarsPlugin;
+import woolwars.woolwars.events.PlayerJoinToGameEvent;
 import woolwars.woolwars.game.Game;
 import woolwars.woolwars.game.Map;
 import woolwars.woolwars.game.states.PreLobbyState;
@@ -70,6 +72,9 @@ public class GameManager {
 
     public void addPlayerToGame(Game game, Player player){
         game.getPlayerList().add(player.getUniqueId());
+
+        Bukkit.getPluginManager().callEvent(new PlayerJoinToGameEvent(game,player));
+
     }
 
     //----------------------------------------------------//
