@@ -33,6 +33,13 @@ public class LobbyState extends GameState {
         (new BukkitRunnable() {
             @Override
             public void run() {
+
+                if(getGame().getPlayerList().size()>5){
+                    if(getGame().getTime()>10){
+                        getGame().setTime(10);
+                    }
+                }
+
                 getGame().setTime(getGame().getTime()-1);
             }
         }).runTaskTimer(getPlugin(),0,20);
@@ -41,7 +48,7 @@ public class LobbyState extends GameState {
 
     @Override
     public void onDisable(){
-
+        getGame().setState(new PlayingState(getPlugin(),getGame()));
     }
 
     public void addPlayer(Player player){
