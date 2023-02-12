@@ -27,6 +27,9 @@ public class GamePlayer {
     @Getter
     @Setter
     private int blocksBreaked = 0;
+    @Getter
+    @Setter
+    private GameClass gameClass;
 
     private static final HashMap<UUID, GamePlayer> gamePlayerHashMap = new HashMap<>();
 

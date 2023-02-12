@@ -116,7 +116,7 @@ public class LobbyState extends GameState {
         if(getGame().getState() != this) return;
 
         if(event.getItem().getType() == Material.COMPASS){
-            getPlugin().getGUIAPI().openGUI(event.getPlayer(),new TeamSelectorGUI(getPlugin()));
+            getPlugin().getGUIAPI().openGUI(event.getPlayer(),new TeamSelectorGUI(getPlugin(),event.getPlayer()));
         }
 
     }

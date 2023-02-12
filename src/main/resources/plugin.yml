@@ -2,3 +2,9 @@ name: WoolWars
 version: '${project.version}'
 main: woolwars.woolwars.WoolWarsPlugin
 api-version: 1.19
+author: Trossty
+website: www.github.com/Trossty
+commands:
+  woolwars:
+    aliases: ww
+

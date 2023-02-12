@@ -2,6 +2,8 @@ package woolwars.woolwars.game;
 
 import lombok.Getter;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import woolwars.woolwars.utils.ItemBuilder;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,6 +32,8 @@ public class Game {
         this.map = map;
         this.location = centerLocation;
         uuid = name;
+
+
     }
 
     public void setState(GameState state) {

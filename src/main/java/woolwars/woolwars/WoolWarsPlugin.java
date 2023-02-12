@@ -6,6 +6,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import woolwars.woolwars.api.GUI.GUIAPI;
 import woolwars.woolwars.classes.EmptyChunkGenerator;
+import woolwars.woolwars.command.MainCommand;
 import woolwars.woolwars.game.Map;
 import woolwars.woolwars.managers.GameManager;
 
@@ -28,18 +29,27 @@ public final class WoolWarsPlugin extends JavaPlugin {
 
         guiapi = new GUIAPI<>(this);
 
-        File file1 = new File(getDataFolder(), "schematics");
-        if (!file1.exists()) {
-            file1.mkdirs();
-        }
 
-        File file2 = new File(getDataFolder(), "maps");
-        if (!file2.exists()) {
-            file2.mkdirs();
-        }
+        getCommand("woolwars").setExecutor(new MainCommand(this));
+
+        createFolders();
 
         loadWorld();
         loadMaps();
+
+    }
+
+    private void createFolders() {
+
+        File schems = new File(getDataFolder(), "schematics");
+        if (!schems.exists()) {
+            schems.mkdirs();
+        }
+
+        File maps = new File(getDataFolder(), "maps");
+        if (!maps.exists()) {
+            maps.mkdirs();
+        }
 
     }
 

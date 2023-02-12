@@ -1,55 +1,71 @@
 package woolwars.woolwars.objects.guis;
 
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import woolwars.woolwars.WoolWarsPlugin;
 import woolwars.woolwars.api.GUI.GUI;
 import woolwars.woolwars.classes.GameTeam;
+import woolwars.woolwars.game.Game;
 import woolwars.woolwars.game.GamePlayer;
 import woolwars.woolwars.utils.Colorize;
 import woolwars.woolwars.utils.ItemBuilder;
 
 public class TeamSelectorGUI extends GUI<WoolWarsPlugin> {
-    public TeamSelectorGUI(WoolWarsPlugin plugin) {
+
+    private Player player;
+
+    public TeamSelectorGUI(WoolWarsPlugin plugin, Player player) {
         super(plugin);
+
+        this.player = player;
 
         createInventory();
     }
 
     private void createInventory() {
 
-        set(11, new ItemBuilder(Material.RED_WOOL).withDisplayName("&cRed Team").withLore(" ","&aClick to Join!"," ").getItemStack(),(whoClicked, clickedItem) -> {
+        GamePlayer gamePlayer = GamePlayer.getGamePlayer(player).get();
 
-            GamePlayer gamePlayer = GamePlayer.getGamePlayer(whoClicked.getUniqueId()).get();
+        ItemBuilder blue = new ItemBuilder(Material.BLUE_WOOL).withDisplayName("&bBlue Team").withLore(" ","&aClick to Join!"," ");
+        ItemBuilder red = new ItemBuilder(Material.RED_WOOL).withDisplayName("&cRed Team").withLore(" ","&aClick to Join!"," ");
+
+        if(gamePlayer.getTeam() == GameTeam.BLUE){
+            blue.withEnchant(Enchantment.CHANNELING,1,false).withFlags(ItemFlag.HIDE_ENCHANTS);
+        }else if(gamePlayer.getTeam() == GameTeam.RED){
+            red.withEnchant(Enchantment.CHANNELING,1,false).withFlags(ItemFlag.HIDE_ENCHANTS);
+        }
+
+        set(11, red.getItemStack(),(whoClicked, clickedItem) -> {
 
             if(gamePlayer.getTeam().equals(GameTeam.RED)){
 
-                Colorize.sendMessage(whoClicked,"&cYou already in RED team!");
+                Colorize.sendMessage(whoClicked,"&cYou are already in RED team!");
 
                 return ButtonAction.CLOSE_GUI;
             }
 
             gamePlayer.setTeam(GameTeam.RED);
 
-            Colorize.sendMessage(whoClicked, "&aYou are in &cRED &a team!");
+            Colorize.sendMessage(whoClicked, "&aJoined &cRED&a team!");
 
             return ButtonAction.CLOSE_GUI;
         });
 
-        set(15, new ItemBuilder(Material.BLUE_WOOL).withDisplayName("&bBlue Team").withLore(" ","&aClick to Join!"," ").getItemStack(),(whoClicked, clickedItem) -> {
 
-            GamePlayer gamePlayer = GamePlayer.getGamePlayer(whoClicked.getUniqueId()).get();
+        set(15, blue.getItemStack(),(whoClicked, clickedItem) -> {
 
             if(gamePlayer.getTeam().equals(GameTeam.BLUE)){
 
-                Colorize.sendMessage(whoClicked,"&cYou already in &bBLUE&c team!");
+                Colorize.sendMessage(whoClicked,"&cYou are already in &bBLUE&c team!");
 
                 return ButtonAction.CLOSE_GUI;
             }
 
             gamePlayer.setTeam(GameTeam.BLUE);
 
-            Colorize.sendMessage(whoClicked, "&aYou are in &bBLUE &ateam!");
+            Colorize.sendMessage(whoClicked, "&aJoined &bBLUE&a team!");
 
             return ButtonAction.CLOSE_GUI;
         });

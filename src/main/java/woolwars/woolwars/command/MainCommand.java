@@ -6,7 +6,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import woolwars.woolwars.WoolWarsPlugin;
-import woolwars.woolwars.objects.guis.MapsGUI;
 import woolwars.woolwars.objects.guis.PlayGUI;
 
 public class MainCommand implements CommandExecutor {
