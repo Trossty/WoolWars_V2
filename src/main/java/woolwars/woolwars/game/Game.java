@@ -1,6 +1,7 @@
 package woolwars.woolwars.game;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import woolwars.woolwars.utils.ItemBuilder;
@@ -20,12 +21,19 @@ public class Game {
 
     private Location location;
 
+    @Setter
     private GameState state;
 
     private Map map;
 
     private int slot = 1;
 
+    @Setter
+    private int blueScore = 0;
+    @Setter
+    private int redScore = 0;
+
+    @Setter
     private int time = 0;
 
     public Game(Map map, Location centerLocation, String name){
@@ -36,11 +44,4 @@ public class Game {
 
     }
 
-    public void setState(GameState state) {
-        this.state = state;
-    }
-
-    public void setTime(int time) {
-        this.time = time;
-    }
 }

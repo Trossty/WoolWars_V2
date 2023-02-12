@@ -8,13 +8,14 @@ import woolwars.woolwars.WoolWarsPlugin;
 import woolwars.woolwars.api.GUI.GUI;
 import woolwars.woolwars.classes.GameTeam;
 import woolwars.woolwars.game.Game;
+import woolwars.woolwars.game.GameClass;
 import woolwars.woolwars.game.GamePlayer;
 import woolwars.woolwars.utils.Colorize;
 import woolwars.woolwars.utils.ItemBuilder;
 
 public class TeamSelectorGUI extends GUI<WoolWarsPlugin> {
 
-    private Player player;
+    private final Player player;
 
     public TeamSelectorGUI(WoolWarsPlugin plugin, Player player) {
         super(plugin);
@@ -27,6 +28,12 @@ public class TeamSelectorGUI extends GUI<WoolWarsPlugin> {
     private void createInventory() {
 
         GamePlayer gamePlayer = GamePlayer.getGamePlayer(player).get();
+
+        Game game = getPlugin().getGameManager().findGame(player);
+
+        if(game == null){
+            return;
+        }
 
         ItemBuilder blue = new ItemBuilder(Material.BLUE_WOOL).withDisplayName("&bBlue Team").withLore(" ","&aClick to Join!"," ");
         ItemBuilder red = new ItemBuilder(Material.RED_WOOL).withDisplayName("&cRed Team").withLore(" ","&aClick to Join!"," ");
@@ -48,6 +55,10 @@ public class TeamSelectorGUI extends GUI<WoolWarsPlugin> {
 
             gamePlayer.setTeam(GameTeam.RED);
 
+            game.getBluePlayerList().remove(player.getUniqueId());
+
+            game.getRedPlayerList().add(player.getUniqueId());
+
             Colorize.sendMessage(whoClicked, "&aJoined &cRED&a team!");
 
             return ButtonAction.CLOSE_GUI;
@@ -64,6 +75,10 @@ public class TeamSelectorGUI extends GUI<WoolWarsPlugin> {
             }
 
             gamePlayer.setTeam(GameTeam.BLUE);
+
+            game.getRedPlayerList().remove(player.getUniqueId());
+
+            game.getBluePlayerList().add(player.getUniqueId());
 
             Colorize.sendMessage(whoClicked, "&aJoined &bBLUE&a team!");
 
