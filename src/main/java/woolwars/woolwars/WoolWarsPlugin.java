@@ -84,6 +84,8 @@ public final class WoolWarsPlugin extends JavaPlugin {
 
                     Location redLocation = mapFile.getLocation("Map.Locations.RedLocation");
                     Location blueLocation = mapFile.getLocation("Map.Locations.BlueLocation");
+                    Location redShopLocation = mapFile.getLocation("Map.Locations.RedShopLocation");
+                    Location blueShopLocation = mapFile.getLocation("Map.Locations.BlueShopLocation");
                     Location centerLocation = mapFile.getLocation("Map.Locations.CenterLocation");
 
                     List<Location> upgradesLocations = new ArrayList<>();
@@ -93,10 +95,10 @@ public final class WoolWarsPlugin extends JavaPlugin {
                         upgradesLocations.add(configLoc);
                     }
 
-                    Map map = new Map(mapName, mapSchemName, redLocation, blueLocation, centerLocation, upgradesLocations);
+                    Map map = new Map(mapName, mapSchemName, mapFile, redLocation, blueLocation, redShopLocation, blueShopLocation, centerLocation, upgradesLocations);
                     gameManager.getMapList().add(map);
                 }else {
-                    Map map = new Map(mapName, mapSchemName, this);
+                    Map map = new Map(mapName, mapSchemName, mapFile, this);
                     gameManager.getMapList().add(map);
                 }
 

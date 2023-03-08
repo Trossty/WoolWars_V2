@@ -49,11 +49,17 @@ public class MainCommand implements CommandExecutor {
                         return false;
                     }
 
+
+
                     switch (args[3]){
 
                         case "RedSpawn":
                             break;
                         case "BlueSpawn":
+                            break;
+                        case "RedShopSpawn":
+                            break;
+                        case "BlueShopSpawn":
                             break;
                         case "Center":
                             break;
