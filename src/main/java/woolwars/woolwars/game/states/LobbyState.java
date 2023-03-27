@@ -11,13 +11,17 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scoreboard.Team;
 import woolwars.woolwars.WoolWarsPlugin;
+import woolwars.woolwars.classes.GameTeam;
 import woolwars.woolwars.events.PlayerJoinToGameEvent;
 import woolwars.woolwars.game.Game;
 import woolwars.woolwars.game.GamePlayer;
 import woolwars.woolwars.game.GameState;
 import woolwars.woolwars.objects.guis.TeamSelectorGUI;
 import woolwars.woolwars.utils.ItemBuilder;
+
+import java.util.Random;
 
 public class LobbyState extends GameState {
 
@@ -40,8 +44,8 @@ public class LobbyState extends GameState {
             public void run() {
 
                 if(getGame().getTime() == 0){
-                    cancel();
                     onDisable();
+                    cancel();
                 }
 
                 if(getGame().getPlayerList().size()>5){
@@ -58,6 +62,37 @@ public class LobbyState extends GameState {
 
     @Override
     public void onDisable(){
+
+        getGame().getPlayerList().stream().map(Bukkit::getPlayer).forEach(player -> {
+
+            GamePlayer gamePlayer = GamePlayer.getGamePlayer(player).get();
+
+            if(gamePlayer.getTeam() == GameTeam.NONE){
+                if(getGame().getRedPlayerList().size()>getGame().getBluePlayerList().size()){
+                    gamePlayer.setTeam(GameTeam.BLUE);
+                    getGame().getBluePlayerList().add(player.getUniqueId());
+                }else if(getGame().getRedPlayerList().size()<getGame().getBluePlayerList().size()){
+                    gamePlayer.setTeam(GameTeam.RED);
+                    getGame().getRedPlayerList().add(player.getUniqueId());
+                }else{
+                    Random random = new Random();
+
+                    switch (random.nextInt(2)+1){
+                        case 1:
+                            gamePlayer.setTeam(GameTeam.BLUE);
+                            getGame().getBluePlayerList().add(player.getUniqueId());
+                            break;
+                        case 2:
+                            gamePlayer.setTeam(GameTeam.RED);
+                            getGame().getRedPlayerList().add(player.getUniqueId());
+                            break;
+                    }
+
+                }
+            }
+
+        });
+
         getGame().setState(new PlayingState(getPlugin(),getGame()));
     }
 

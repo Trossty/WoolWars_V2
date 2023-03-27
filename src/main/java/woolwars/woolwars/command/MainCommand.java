@@ -1,5 +1,6 @@
 package woolwars.woolwars.command;
 
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -49,21 +50,21 @@ public class MainCommand implements CommandExecutor {
                         return false;
                     }
 
-
+                    Location location = player.getLocation();
 
                     switch (args[3]){
 
                         case "RedSpawn":
-                            break;
                         case "BlueSpawn":
-                            break;
                         case "RedShopSpawn":
-                            break;
                         case "BlueShopSpawn":
-                            break;
                         case "Center":
-                            break;
                         case "Upgrades":
+                            game.getMap().getConfig().set("Locations."+args[3],location);
+                            Colorize.sendMessage(player, "&6"+args[3]+" &aLocation set!");
+                            break;
+                        default:
+                            Colorize.sendMessage(player, "&cPlease enter valid location name!");
                             break;
 
                     }
